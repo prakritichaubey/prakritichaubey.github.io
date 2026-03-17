@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prakriti Chaubey — Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #080c10; --bg2: #0d1117; --bg3: #111820; --surface: #141c24;
+    --border: rgba(255,255,255,0.07); --border-hover: rgba(99,210,255,0.3);
+    --text: #e8edf2; --muted: #6b7d8f; --accent: #63d2ff;
+    --accent2: #a78bfa; --accent3: #34d399; --glow: rgba(99,210,255,0.12);
+    --nav-bg: rgba(8,12,16,0.97); --highlight: #6b7d8f;
+  }
+  [data-theme="light"] {
+    --bg: #f4f6f9; --bg2: #edf0f5; --bg3: #e6eaf1; --surface: #ffffff;
+    --border: rgba(0,0,0,0.08); --border-hover: rgba(14,116,144,0.35);
+    --text: #0f1923; --muted: #5a6a7a; --accent: #0284c7;
+    --accent2: #7c3aed; --accent3: #059669; --glow: rgba(2,132,199,0.1);
+    --nav-bg: rgba(244,246,249,0.97); --highlight: #5a6a7a;
+  }
+  [data-theme="light"] body::after {
+    background-image: linear-gradient(rgba(2,132,199,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(2,132,199,0.04) 1px,transparent 1px);
+  }
+  [data-theme="light"] .hero-glow {
+    background: radial-gradient(circle,rgba(2,132,199,0.07) 0%,transparent 70%);
+  }
+  [data-theme="light"] .about-text p { color: #4a5a6a; }
+  [data-theme="light"] .hero-desc { color: #4a5a6a; }
+  [data-theme="light"] .highlight { color: #5a6a7a; }
+  [data-theme="light"] .timeline-points li { color: #5a6a7a; }
+  [data-theme="light"] .notable-desc { color: #5a6a7a; }
+  [data-theme="light"] .unit-concept { color: #5a6a7a; }
+  [data-theme="light"] .project-desc { color: #5a6a7a; }
+  [data-theme="light"] .project-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+  [data-theme="light"] .skill-tag { background: rgba(0,0,0,0.03); }
+  [data-theme="light"] .btn-primary { color: #ffffff; }
+  [data-theme="light"] .cursor { mix-blend-mode: multiply; }
+  [data-theme="light"] .edu-detail { color: #5a6a7a; }
+  [data-theme="light"] body::before { opacity: 0.15; }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  html { scroll-behavior: smooth; }
+  body { background:var(--bg); color:var(--text); font-family:'Syne',sans-serif; overflow-x:hidden; cursor:none; }
+  .cursor { width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform 0.15s ease;mix-blend-mode:screen; }
+  .cursor-ring { width:32px;height:32px;border:1px solid rgba(99,210,255,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:all 0.08s ease; }
+  body::before { content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.4; }
+  body::after { content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(99,210,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(99,210,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0; }
+  nav { position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,var(--nav-bg),transparent);backdrop-filter:blur(12px); }
+  .nav-logo { font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:0.08em;text-decoration:none; }
+  .nav-links { display:flex;gap:28px;list-style:none; }
+  .nav-links a { font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s;position:relative; }
+  .nav-links a::after { content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.3s; }
+  .nav-links a:hover { color:var(--accent); }
+  .nav-links a:hover::after { width:100%; }
+  section { position:relative;z-index:1; }
+  #hero { min-height:100vh;display:flex;align-items:center;padding:120px 60px 60px;position:relative;overflow:hidden; }
+  .hero-glow { position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(99,210,255,0.05) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;animation:pulse 7s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)} }
+  .hero-content { max-width:960px; }
+  .hero-tag { font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp 0.8s 0.2s forwards; }
+  .hero-tag::before { content:'';width:32px;height:1px;background:var(--accent); }
+  .hero-name { font-size:clamp(52px,8vw,100px);font-weight:800;line-height:0.95;letter-spacing:-0.03em;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.4s forwards; }
+  .hero-name .accent { color:var(--accent); }
+  .hero-title { font-family:'DM Mono',monospace;font-size:clamp(13px,1.8vw,17px);color:var(--muted);font-weight:300;margin-bottom:32px;opacity:0;animation:fadeUp 0.8s 0.6s forwards; }
+  .hero-pills { display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.7s forwards; }
+  .hero-pill { font-family:'DM Mono',monospace;font-size:11px;color:var(--accent3);border:1px solid rgba(52,211,153,0.25);padding:5px 14px;letter-spacing:0.08em; }
+  .hero-desc { font-size:16px;color:#8fa0b0;line-height:1.85;max-width:620px;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s 0.8s forwards; }
+  .hero-desc strong { color:var(--text); }
+  .hero-cta { display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s 1s forwards; }
+  .btn-primary { padding:14px 32px;background:var(--accent);color:var(--bg);font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:0.08em;text-decoration:none;border:none;cursor:none;transition:all 0.3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .btn-primary:hover { background:#8de8ff;transform:translateY(-2px);box-shadow:0 8px 30px rgba(99,210,255,0.3); }
+  .btn-outline { padding:14px 32px;background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.08em;text-decoration:none;border:1px solid var(--border);cursor:none;transition:all 0.3s; }
+  .btn-outline:hover { border-color:var(--accent);color:var(--accent);transform:translateY(-2px); }
+  .status-badge { position:absolute;bottom:48px;right:60px;display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);opacity:0;animation:fadeUp 0.8s 1.2s forwards; }
+  .status-dot { width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .scroll-hint { position:absolute;bottom:48px;left:60px;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.15em;opacity:0;animation:fadeUp 0.8s 1.4s forwards; }
+  .scroll-line { width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--muted));animation:scrollAnim 2s ease-in-out infinite; }
+  @keyframes scrollAnim { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  .section-inner { max-width:1100px;margin:0 auto;padding:120px 60px; }
+  .section-label { font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.25em;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:16px; }
+  .section-label::after { content:'';flex:1;height:1px;background:var(--border);max-width:80px; }
+  .section-title { font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-0.02em;margin-bottom:60px;line-height:1.1; }
+  .reveal { opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1;transform:translateY(0); }
+  .divider { width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:20px 0 60px; }
+  #about { background:var(--bg2); }
+  .about-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start; }
+  .about-text p { font-size:15px;color:#8fa0b0;line-height:1.9;margin-bottom:18px; }
+  .about-text p strong { color:var(--text);font-weight:600; }
+  .about-stats { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px; }
+  .stat-card { background:var(--surface);border:1px solid var(--border);padding:22px;transition:border-color 0.3s; }
+  .stat-card:hover { border-color:var(--border-hover); }
+  .stat-num { font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-0.02em;display:block; }
+  .stat-label { font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;margin-top:4px; }
+  .about-info { display:flex;flex-direction:column;gap:14px; }
+  .info-row { display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);transition:all 0.3s; }
+  .info-row:hover { border-color:var(--border-hover);transform:translateX(4px); }
+  .info-icon { width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--glow);color:var(--accent);font-size:15px;flex-shrink:0; }
+  .info-content .label { font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:3px; }
+  .info-content .value { font-size:13px;color:var(--text);font-weight:500; }
+  .info-content a { color:var(--accent);text-decoration:none; }
+  .info-content a:hover { text-decoration:underline; }
+  #skills { background:var(--bg); }
+  .skills-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px; }
+  .skill-group { background:var(--surface);border:1px solid var(--border);padding:28px;transition:all 0.3s;position:relative;overflow:hidden; }
+  .skill-group::before { content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform 0.4s; }
+  .skill-group:hover { border-color:var(--border-hover);transform:translateY(-4px); }
+  .skill-group:hover::before { transform:scaleX(1); }
+  .skill-group-icon { font-size:22px;margin-bottom:14px; }
+  .skill-group-title { font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:18px; }
+  .skill-tags { display:flex;flex-wrap:wrap;gap:7px; }
+  .skill-tag { font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);padding:5px 11px;border:1px solid var(--border);background:rgba(255,255,255,0.02);transition:all 0.2s; }
+  .skill-tag:hover { color:var(--accent);border-color:var(--accent);background:var(--glow); }
+  #projects { background:var(--bg2); }
+  .projects-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:20px; }
+  .project-card { background:var(--bg3);border:1px solid var(--border);padding:32px;transition:all 0.3s;position:relative;overflow:hidden; }
+  .project-card::after { content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transition:transform 0.4s; }
+  .project-card:hover { border-color:var(--border-hover);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.4); }
+  .project-card:hover::after { transform:scaleX(1); }
+  .project-num { font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.2em;margin-bottom:16px; }
+  .project-title { font-size:17px;font-weight:700;margin-bottom:6px;color:var(--text);line-height:1.3; }
+  .project-tech { font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:14px;letter-spacing:0.04em; }
+  .project-desc { font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:16px; }
+  .project-highlights { display:flex;flex-direction:column;gap:8px; }
+  .highlight { font-family:'DM Mono',monospace;font-size:11px;color:#6b7d8f;display:flex;align-items:flex-start;gap:8px;line-height:1.55; }
+  .highlight::before { content:'→';color:var(--accent3);flex-shrink:0;margin-top:1px; }
+  .project-badge { display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);border:1px solid rgba(52,211,153,0.3);padding:3px 10px;letter-spacing:0.1em; }
+  .notable-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px; }
+  .notable-card { background:var(--surface);border:1px solid var(--border);padding:22px;transition:all 0.3s; }
+  .notable-card:hover { border-color:var(--border-hover);transform:translateY(-3px); }
+  .notable-title { font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text); }
+  .notable-tech { font-family:'DM Mono',monospace;font-size:10px;color:var(--accent2);margin-bottom:10px;letter-spacing:0.05em; }
+  .notable-desc { font-size:12px;color:var(--muted);line-height:1.6; }
+  #experience { background:var(--bg); }
+  .timeline { position:relative;padding-left:32px; }
+  .timeline::before { content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),transparent); }
+  .timeline-item { position:relative;margin-bottom:56px;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease; }
+  .timeline-item.visible { opacity:1;transform:translateY(0); }
+  .timeline-dot { position:absolute;left:-37px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:1px solid var(--accent);transition:background 0.3s; }
+  .timeline-item:hover .timeline-dot { background:var(--accent); }
+  .timeline-period { font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.1em;margin-bottom:7px; }
+  .timeline-title { font-size:19px;font-weight:700;margin-bottom:3px; }
+  .timeline-org { font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:14px; }
+  .timeline-points { list-style:none;display:flex;flex-direction:column;gap:8px; }
+  .timeline-points li { font-size:13px;color:#7a8e9e;padding-left:16px;position:relative;line-height:1.7; }
+  .timeline-points li::before { content:'▸';position:absolute;left:0;color:var(--accent);font-size:10px;top:5px; }
+  .edu-card { background:var(--surface);border:1px solid var(--border);padding:36px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;transition:border-color 0.3s; }
+  .edu-card:hover { border-color:var(--border-hover); }
+  .edu-degree { font-size:19px;font-weight:700;margin-bottom:5px; }
+  .edu-uni { font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:12px; }
+  .edu-detail { font-size:13px;color:var(--muted);line-height:1.75; }
+  .edu-gpa { text-align:right; }
+  .edu-gpa .gpa-num { font-size:28px;font-weight:800;color:var(--accent2);letter-spacing:-0.02em; }
+  .edu-gpa .gpa-label { font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em; }
+  .certs-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px; }
+  .cert-card { background:var(--surface);border:1px solid var(--border);padding:22px;transition:all 0.3s; }
+  .cert-card:hover { border-color:rgba(167,139,250,0.4);transform:translateY(-3px); }
+  .cert-issuer { font-family:'DM Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px; }
+  .cert-title { font-size:13px;font-weight:600;color:var(--text);line-height:1.4; }
+  .achievements { display:flex;flex-direction:column;gap:14px;margin-top:48px; }
+  .achievement-row { display:flex;align-items:center;gap:20px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);transition:all 0.3s; }
+  .achievement-row:hover { border-color:rgba(52,211,153,0.3);transform:translateX(6px); }
+  .achievement-icon { font-size:18px; }
+  .achievement-text { font-size:13px;color:var(--text);font-weight:500;line-height:1.5; }
+  .achievement-tag { margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);border:1px solid rgba(52,211,153,0.3);padding:3px 10px;white-space:nowrap; }
+  #learning { background:var(--bg2); }
+  .learning-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:20px; }
+  .unit-card { background:var(--surface);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden;transition:all 0.3s; }
+  .unit-card::before { content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0;transition:opacity 0.3s; }
+  .unit-card:hover { border-color:var(--border-hover);transform:translateY(-4px); }
+  .unit-card:hover::before { opacity:1; }
+  .unit-live { display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);border:1px solid rgba(52,211,153,0.25);padding:3px 10px;margin-bottom:14px;letter-spacing:0.1em; }
+  .unit-live-dot { width:5px;height:5px;border-radius:50%;background:var(--accent3);animation:blink 2s ease-in-out infinite; }
+  .unit-code { font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.15em;margin-bottom:6px; }
+  .unit-name { font-size:18px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3; }
+  .unit-type { font-family:'DM Mono',monospace;font-size:11px;color:var(--accent2);margin-bottom:18px; }
+  .unit-concepts { display:flex;flex-direction:column;gap:7px; }
+  .unit-concept { display:flex;align-items:flex-start;gap:10px;font-size:12px;color:#7a8e9e;line-height:1.5; }
+  .unit-concept-dot { width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px; }
+  .unit-focus { margin-top:18px;padding:10px 14px;background:rgba(99,210,255,0.04);border-left:2px solid var(--accent);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:1.6; }
+  .unit-focus span { color:var(--accent); }
+  #contact { background:var(--bg);border-top:1px solid var(--border); }
+  .contact-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start; }
+  .contact-text h2 { font-size:48px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px; }
+  .contact-text h2 span { color:var(--accent); }
+  .contact-text p { font-size:14px;color:var(--muted);line-height:1.8; }
+  .contact-links { display:flex;flex-direction:column;gap:14px; }
+  .contact-link { display:flex;align-items:center;gap:16px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all 0.3s; }
+  .contact-link:hover { border-color:var(--border-hover);transform:translateX(6px); }
+  .contact-link-icon { width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--glow);color:var(--accent);font-size:16px;flex-shrink:0; }
+  .contact-link-label { font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px; }
+  .contact-link-value { font-size:13px;color:var(--text); }
+  footer { padding:28px 60px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);position:relative;z-index:1; }
+  @media (max-width:900px) {
+    nav{padding:20px 24px} .nav-links{gap:14px} #hero{padding:120px 24px 80px}
+    .section-inner{padding:80px 24px} .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+    .skills-grid,.projects-grid,.certs-grid,.learning-grid,.notable-grid{grid-template-columns:1fr}
+    .status-badge,.scroll-hint{display:none} footer{flex-direction:column;gap:8px;text-align:center;padding:24px}
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">pc.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#learning">learning</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+</nav>
+
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Software Engineer · Full-Stack · ML &amp; Cloud · QUT Brisbane</div>
+    <h1 class="hero-name">Prakriti<br><span class="accent">Chaubey</span></h1>
+    <div class="hero-title">Software Engineer who specialises in AI/ML</div>
+    <div class="hero-pills">
+      <span class="hero-pill">★ Hackathon Winner</span>
+      <span class="hero-pill">★ No Sponsorship Required</span>
+      <span class="hero-pill">★ Available Dec 2026</span>
+    </div>
+    <p class="hero-desc">Final-year BE (Honours) student building across the full stack — ML pipelines, full-stack web applications, cloud-native architectures, and systems-level programming. I build things that work, and I understand why they work.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="status-badge"><div class="status-dot"></div>Seeking grad roles · Dec 2026</div>
+  <div class="scroll-hint"><span>scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title reveal">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>final-year Computer &amp; Software Systems student</strong> at QUT, building across the full engineering stack — from bare-metal microcontrollers and safety-critical embedded systems to ML pipelines, cloud-native architectures, and full-stack web applications.</p>
+        <p>I don't just study these things — I ship them. Every major project is a working system with real metrics, production-grade methodology, and documented engineering trade-offs. I care about <strong>understanding why</strong> something works, not just making it run.</p>
+        
+        <div class="about-stats">
+          <div class="stat-card"><span class="stat-num">6</span><div class="stat-label">Featured Projects</div></div>
+          <div class="stat-card"><span class="stat-num">3</span><div class="stat-label">AWS Architecture Stages</div></div>
+          <div class="stat-card"><span class="stat-num">10+</span><div class="stat-label">Projects Shipped</div></div>
+          <div class="stat-card"><span class="stat-num">2x</span><div class="stat-label">Hackathon Placements</div></div>
+        </div>
+      </div>
+      <div class="about-info reveal">
+        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="label">Location</div><div class="value">Brisbane, QLD, Australia</div></div></div>
+        <div class="info-row"><div class="info-icon">🎓</div><div class="info-content"><div class="label">Degree</div><div class="value">BE (Hons) – Computer &amp; Software Systems · QUT</div></div></div>
+        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="label">Graduating</div><div class="value">December 2026 · GPA 5.45 / 7.00</div></div></div>
+        
+        
+        <div class="info-row"><div class="info-icon">📋</div><div class="info-content"><div class="label">Work Rights</div><div class="value">Student Visa (500) · Full-time eligible · No sponsorship required</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">02 — Skills</div>
+    <h2 class="section-title reveal">Tech Stack</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal"><div class="skill-group-icon">🐍</div><div class="skill-group-title">Languages</div><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C / MISRA-C</span><span class="skill-tag">C#</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">🤖</div><div class="skill-group-title">ML / AI</div><div class="skill-tags"><span class="skill-tag">TensorFlow</span><span class="skill-tag">Transfer Learning</span><span class="skill-tag">Random Forest</span><span class="skill-tag">Computer Vision</span><span class="skill-tag">IoT Sensor Pipelines</span><span class="skill-tag">LLM Prompting</span><span class="skill-tag">Agentic AI</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">⚙️</div><div class="skill-group-title">Systems</div><div class="skill-tags"><span class="skill-tag">Parallel Computing</span><span class="skill-tag">TCP/IP</span><span class="skill-tag">POSIX Shared Memory</span><span class="skill-tag">Microcontrollers</span><span class="skill-tag">Signal Processing</span><span class="skill-tag">RTOS</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">☁️</div><div class="skill-group-title">Backend &amp; Cloud</div><div class="skill-tags"><span class="skill-tag">AWS</span><span class="skill-tag">Docker</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">Kafka</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Node.js</span><span class="skill-tag">Maven</span><span class="skill-tag">CI/CD</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">🌐</div><div class="skill-group-title">Frontend &amp; Web</div><div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">HTML / CSS</span><span class="skill-tag">Express</span><span class="skill-tag">Figma</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">🛠️</div><div class="skill-group-title">Tooling</div><div class="skill-tags"><span class="skill-tag">Git</span><span class="skill-tag">Linux</span><span class="skill-tag">Jupyter</span><span class="skill-tag">Vertex AI</span><span class="skill-tag">MySQL Workbench</span><span class="skill-tag">Agile / TDD</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">03 — Projects</div>
+    <h2 class="section-title reveal">Selected Work</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-num">01 / 06</div>
+        <div class="project-title">IoT Human Activity Recognition</div>
+        <div class="project-tech">Python · Random Forest · Accelerometer Sensors · IAB330</div>
+        <div class="project-desc">End-to-end ML pipeline classifying physical movement from raw sensor data — directly applicable to driver fatigue detection and wearable health monitoring.</div>
+        <div class="project-highlights">
+          <div class="highlight">98% classification accuracy on Random Forest — after a custom noise-filtering pipeline reduced classification error by 20% in pre-processing</div>
+          <div class="highlight">Production-grade validation: F1-score across all activity classes, not just headline accuracy</div>
+          <div class="highlight">Full pipeline ownership: sensor ingestion → signal cleaning → feature engineering → training → evaluation</div>
+        </div>
+        <div class="project-badge">★ End-to-End ML Pipeline</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">02 / 06</div>
+        <div class="project-title">BuzzLink — Social Travel App</div>
+        <div class="project-tech">React · Node.js · REST API · Figma · Jul 2025</div>
+        <div class="project-desc">Full-stack social platform enabling real-time traveller matching — built as a working product, not a prototype, with a cross-functional team of 7+.</div>
+        <div class="project-highlights">
+          <div class="highlight">Complete product lifecycle: user research → Figma wireframes → frontend → backend API integration → iterative QA</div>
+          <div class="highlight">Resolved integration blockers between frontend and backend across a 7+ engineer agile team</div>
+          <div class="highlight">React frontend + Node.js/Express REST API — shipped as a real working application</div>
+        </div>
+        <div class="project-badge">★ Full-Stack · 7+ Engineer Team</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">03 / 06</div>
+        <div class="project-title">Cloud REST API → Microservices</div>
+        <div class="project-tech">AWS · Docker · Node.js · Auth · Messaging · CAB432</div>
+        <div class="project-desc">Same application evolved through 3 progressive cloud architectures — each migration a deliberate, documented engineering trade-off decision.</div>
+        <div class="project-highlights">
+          <div class="highlight">Monolith on AWS EC2 → stateless service with cloud persistence &amp; user auth → modular microservices with async messaging</div>
+          <div class="highlight">Documented rationale at every stage: containerisation for portability, cloud DB for statelessness, queues for decoupling</div>
+          <div class="highlight">Auth services, cloud-native persistence, and service-to-service comms built from scratch</div>
+        </div>
+        <div class="project-badge">★ 3 Architectural Stages</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">04 / 06</div>
+        <div class="project-title">Application Parallelisation</div>
+        <div class="project-tech">C/C++ · Multi-core · Performance Profiling · CAB401</div>
+        <div class="project-desc">Serial computationally intensive application parallelised manually with raw thread decomposition — benchmarked against theoretical speedup on multi-core hardware.</div>
+        <div class="project-highlights">
+          <div class="highlight">Hotspot profiling first — identified exactly where parallelism pays off vs where sync overhead cancels gains</div>
+          <div class="highlight">Scalability analysis: thread count vs memory contention vs observed speedup</div>
+          <div class="highlight">Raw POSIX threading — no framework magic, manual work decomposition throughout</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">05 / 06</div>
+        <div class="project-title">Deep Learning Image Classifier</div>
+        <div class="project-tech">Python · TensorFlow · Transfer Learning · CAB320</div>
+        <div class="project-desc">Pre-built CNN retrained via transfer learning on a complex visual dataset — applicable to autonomous vehicle object detection pipelines.</div>
+        <div class="project-highlights">
+          <div class="highlight">Recognised raw accuracy was misleading — shifted to precision/recall curves to surface actual failure modes</div>
+          <div class="highlight">Tuned precision and recall independently to minimise false positives in visual recognition</div>
+          <div class="highlight">Authored a technical Ethical AI analysis on algorithmic bias in automated vision systems</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">06 / 06</div>
+        <div class="project-title">AI-Powered Student Planner</div>
+        <div class="project-tech">Java · JavaFX · SQLite · Ollama LLM · PDFBox</div>
+        <div class="project-desc">Desktop app integrating a local LLM to automate academic organisation — reads learning materials, syncs deadlines, identifies cross-subject connections.</div>
+        <div class="project-highlights">
+          <div class="highlight">Local Ollama LLM integration for automated PDF and announcement reading</div>
+          <div class="highlight">SQLite persistence with full auth system and user data management</div>
+          <div class="highlight">Calendar integration surfacing key dates and weekly content digests</div>
+        </div>
+        <div class="project-badge">★ Group · 5 Engineers</div>
+      </div>
+
+    </div>
+
+    <div class="divider" style="margin-top:48px"></div>
+    <div class="section-label" style="margin-bottom:24px">Also Notable</div>
+    <div class="notable-grid">
+      <div class="notable-card reveal">
+        <div class="notable-title">Distributed Elevator System</div>
+        <div class="notable-tech">C · TCP/IP · POSIX Shared Memory · MISRA-C</div>
+        <div class="notable-desc">5-component safety-critical architecture with inter-process comms; safety monitor built to automotive MISRA-C standard.</div>
+      </div>
+      <div class="notable-card reveal">
+        <div class="notable-title">Safety-Critical Embedded Controller</div>
+        <div class="notable-tech">Embedded C · QUTy · GPIO · PWM · Interrupts</div>
+        <div class="notable-desc">Fully interrupt-driven Simon game on bare-metal microcontroller — register-level GPIO, PWM tone gen, 7-segment display, no OS layer.</div>
+      </div>
+      <div class="notable-card reveal">
+        <div class="notable-title">Mathematical Modelling &amp; Simulation</div>
+        <div class="notable-tech">Python · Numerical Methods</div>
+        <div class="notable-desc">Applied numerical methods to real-world engineering problems with full analytical documentation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">04 — Experience &amp; Education</div>
+    <h2 class="section-title reveal">Background</h2>
+    <div class="edu-card reveal">
+      <div>
+        <div class="edu-degree">Bachelor of Engineering (Honours)</div>
+        <div class="edu-uni">Computer &amp; Software Systems · Queensland University of Technology</div>
+        <div class="edu-detail">Feb 2023 – Dec 2026 · Brisbane, QLD<br><strong style="color:var(--accent2)">International Merit Scholarship</strong> — 25% tuition award for academic excellence<br><br>Coursework: Systems Programming · Software Architecture · Embedded Systems · Parallel Computing · AI · Applied IoT · Cloud Computing · Databases · Cybersecurity · Signal Analysis · RF &amp; Telecommunications · Electronic Design</div>
+      </div>
+      <div class="edu-gpa"><div class="gpa-num">5.45</div><div class="gpa-label">GPA / 7.00</div></div>
+    </div>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jan 2026</div>
+        <div class="timeline-title">Software Engineering Simulation</div>
+        <div class="timeline-org">JPMorganChase × Forage</div>
+        <ul class="timeline-points">
+          <li>Built a Kafka consumer microservice in Spring Boot that ingested and deserialised high-volume transaction streams — verified end-to-end with embedded Kafka test framework and Maven suites, zero regressions</li>
+          <li>Integrated a live external REST incentive API into transactional workflows; delivered a structured JSON balance endpoint via a Spring controller within clean layered architecture</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">2025 – Present</div>
+        <div class="timeline-title">Student Success Partner</div>
+        <div class="timeline-org">Queensland University of Technology</div>
+        <ul class="timeline-points">
+          <li>Diagnosed and fixed a broken survey UX — proposed a redesign that cut redundant steps, measurably reducing student drop-off and improving completion rates</li>
+          <li>Reached 100–120 students per session as a QUT Connect facilitator, reducing first-week support escalations</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">2024</div>
+        <div class="timeline-title">Coding Instructor</div>
+        <div class="timeline-org">Code Camp</div>
+        <ul class="timeline-points">
+          <li>Designed a programming curriculum from scratch for 20–25 students aged 7–10 — hands-on exercises with session-to-session checkpoints, achieving consistent measurable progression</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider" style="margin-top:60px"></div>
+    <div class="section-label" style="margin-bottom:16px">Certifications</div>
+    <div class="certs-grid">
+      <div class="cert-card reveal"><div class="cert-issuer">Google Cloud</div><div class="cert-title">Prompt Design in Vertex AI · Applied Intelligence &amp; Cloud Architecture · Compute, Storage &amp; Monitoring</div></div>
+      <div class="cert-card reveal"><div class="cert-issuer">Google Cloud</div><div class="cert-title">Intro to LLMs · Intro to Generative AI · Intro to Responsible AI</div></div>
+      <div class="cert-card reveal"><div class="cert-issuer">Google × Kaggle</div><div class="cert-title">5-Day AI Agents Intensive · Agentic AI &amp; Software Development</div></div>
+    </div>
+    <div class="achievements">
+      <div class="achievement-row reveal"><div class="achievement-icon">🏆</div><div class="achievement-text">Winner — ProtoComp HealthTech Design Hackathon, QUT Innovation Centre — built a health data platform and insights dashboard, placed first across all competing teams</div><div class="achievement-tag">1st Place</div></div>
+      <div class="achievement-row reveal"><div class="achievement-icon">🥈</div><div class="achievement-text">Runner-Up — QUT 2-Day Innovation Challenge</div><div class="achievement-tag">2nd Place</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="learning">
+  <div class="section-inner">
+    <div class="section-label">05 — Currently Learning</div>
+    <h2 class="section-title reveal">This Semester <span style="font-size:0.45em;color:var(--accent3);font-weight:400;vertical-align:middle;font-family:'DM Mono',monospace;letter-spacing:0.1em;">· Sem 1, 2026</span></h2>
+    <div class="learning-grid">
+      <div class="unit-card reveal">
+        <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
+        <div class="unit-code">CAB420</div>
+        <div class="unit-name">Machine Learning</div>
+        <div class="unit-type">Honours · Python · JupyterLab</div>
+        <div class="unit-concepts">
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Classification principles, dimensionality reduction &amp; subspace methods</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Deep learning — CNNs, Transformers and neural architecture analysis</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Statistical ML foundations, model evaluation and compute cost reduction</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Ethical ML: marginalisation, algorithmic bias and responsible deployment</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Applications in computer vision, finance and information retrieval</div>
+        </div>
+        <div class="unit-focus"><span>Current focus:</span> Applied ML project — researching cutting-edge methods and communicating findings to a specialised audience</div>
+      </div>
+      <div class="unit-card reveal">
+        <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
+        <div class="unit-code">CAB403</div>
+        <div class="unit-name">Embedded Systems</div>
+        <div class="unit-type">Honours · C/C++ · RTOS · Lab-Based</div>
+        <div class="unit-concepts">
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Real-time operating systems for concurrent task management</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Advanced microcontroller peripherals and serial communication</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Real-time sensing, control loops and interrupt-driven design</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>C/C++ embedded application development with hardware integration</div>
+        </div>
+        <div class="unit-focus"><span>Current focus:</span> Group PBL project — designing embedded software to control an external device in real time</div>
+      </div>
+      <div class="unit-card reveal">
+        <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
+        <div class="unit-code">EGH490-1</div>
+        <div class="unit-name">Capstone Research Project 1</div>
+        <div class="unit-type">Honours · Independent Research · Engineering Practice</div>
+        <div class="unit-concepts">
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Engineering project design, methodology and professional management</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Literature review, synthesis and reference management</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Risk, ethics and sustainability in a real engineering project context</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Stakeholder engagement and professional engineering practice</div>
+        </div>
+        <div class="unit-focus"><span>Current focus:</span> Project proposal + literature review — continuing into EGH490-2 next semester</div>
+      </div>
+      <div class="unit-card reveal">
+        <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
+        <div class="unit-code">CAB230</div>
+        <div class="unit-name">Web Computing</div>
+        <div class="unit-type">JavaScript · React · Node.js · Express · HTTPS</div>
+        <div class="unit-concepts">
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Modern JavaScript — client-side programming and async patterns</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>React for responsive, component-based frontend development</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Node.js + Express for server-side REST API design and deployment</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Web security threats, HTTPS deployment and mitigation</div>
+        </div>
+        <div class="unit-focus"><span>Current focus:</span> Full-stack data-driven web app — React frontend + custom Node.js REST API, deployed live with HTTPS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">06 — Contact</div>
+    <div class="contact-grid">
+      <div class="contact-text reveal">
+        <h2>Let's<br><span>Work Together</span></h2>
+        <p style="margin-top:20px">Actively seeking graduate software engineering roles from December 2026. Open to full-time opportunities in engineering, AI/ML, or cloud-native development. Student Visa (500) — full-time eligible, no sponsorship required.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="mailto:chaubeprakriti@gmail.com" class="contact-link"><div class="contact-link-icon">✉️</div><div><div class="contact-link-label">Email</div><div class="contact-link-value">chaubeprakriti@gmail.com</div></div></a>
+        <a href="https://www.linkedin.com/in/prakritichaubey31" target="_blank" class="contact-link"><div class="contact-link-icon">🔗</div><div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/prakritichaubey31</div></div></a>
+        <a href="https://github.com/prakritichaubey" target="_blank" class="contact-link"><div class="contact-link-icon">🐙</div><div><div class="contact-link-label">GitHub</div><div class="contact-link-value">github.com/prakritichaubey</div></div></a>
+        <a href="tel:+61403768216" class="contact-link"><div class="contact-link-icon">📱</div><div><div class="contact-link-label">Mobile</div><div class="contact-link-value">(+61) 403 768 216</div></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Prakriti Chaubey</span>
+  <span>Built with precision · Brisbane, AU</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = (mx - 4) + 'px';
+    cursor.style.top = (my - 4) + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx - 16) * 0.12;
+    ry += (my - ry - 16) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .skill-tag, .project-card, .info-row, .notable-card, .unit-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform='scale(2.5)'; ring.style.transform='scale(1.4)'; ring.style.borderColor='rgba(99,210,255,0.6)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform='scale(1)'; ring.style.transform='scale(1)'; ring.style.borderColor='rgba(99,210,255,0.4)'; });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+  function animateCount(el, target, suffix, duration) {
+    duration = duration || 1200;
+    var isFloat = target % 1 !== 0;
+    var start = 0;
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var val = eased * target;
+      el.textContent = (isFloat ? val.toFixed(2) : Math.round(val)) + (suffix || '');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var statObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat-num').forEach(function(n) {
+          var raw = n.textContent;
+          var suffix = raw.replace(/[0-9.]/g, '');
+          var num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+          if (!isNaN(num) && num > 0) animateCount(n, num, suffix);
+        });
+        statObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.about-stats').forEach(function(el) { statObserver.observe(el); });
+
+  // Theme toggle
+  var toggle = document.getElementById('themeToggle');
+  var saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+  toggle.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+</script>
+</body>
+</html>
