@@ -15,30 +15,30 @@
     --nav-bg: rgba(8,12,16,0.97); --highlight: #6b7d8f;
   }
   [data-theme="light"] {
-    --bg: #f4f6f9; --bg2: #edf0f5; --bg3: #e6eaf1; --surface: #ffffff;
-    --border: rgba(0,0,0,0.08); --border-hover: rgba(14,116,144,0.35);
-    --text: #0f1923; --muted: #5a6a7a; --accent: #0284c7;
-    --accent2: #7c3aed; --accent3: #059669; --glow: rgba(2,132,199,0.1);
-    --nav-bg: rgba(244,246,249,0.97); --highlight: #5a6a7a;
+    --bg: #f5f0e8; --bg2: #ede8df; --bg3: #e4ddd2; --surface: #faf7f2;
+    --border: rgba(0,0,0,0.07); --border-hover: rgba(180,120,60,0.35);
+    --text: #1a1410; --muted: #6b5e4e; --accent: #b45309;
+    --accent2: #7c3aed; --accent3: #15803d; --glow: rgba(180,83,9,0.08);
+    --nav-bg: rgba(245,240,232,0.97); --highlight: #6b5e4e;
   }
   [data-theme="light"] body::after {
-    background-image: linear-gradient(rgba(2,132,199,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(2,132,199,0.04) 1px,transparent 1px);
+    background-image: linear-gradient(rgba(180,83,9,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(180,83,9,0.04) 1px,transparent 1px);
   }
   [data-theme="light"] .hero-glow {
-    background: radial-gradient(circle,rgba(2,132,199,0.07) 0%,transparent 70%);
+    background: radial-gradient(circle,rgba(180,83,9,0.07) 0%,transparent 70%);
   }
-  [data-theme="light"] .about-text p { color: #4a5a6a; }
-  [data-theme="light"] .hero-desc { color: #4a5a6a; }
-  [data-theme="light"] .highlight { color: #5a6a7a; }
-  [data-theme="light"] .timeline-points li { color: #5a6a7a; }
-  [data-theme="light"] .notable-desc { color: #5a6a7a; }
-  [data-theme="light"] .unit-concept { color: #5a6a7a; }
-  [data-theme="light"] .project-desc { color: #5a6a7a; }
+  [data-theme="light"] .about-text p { color: #4a3c2e; }
+  [data-theme="light"] .hero-desc { color: #4a3c2e; }
+  [data-theme="light"] .highlight { color: #5a4e40; }
+  [data-theme="light"] .timeline-points li { color: #5a4e40; }
+  [data-theme="light"] .notable-desc { color: #5a4e40; }
+  [data-theme="light"] .unit-concept { color: #5a4e40; }
+  [data-theme="light"] .project-desc { color: #5a4e40; }
   [data-theme="light"] .project-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
   [data-theme="light"] .skill-tag { background: rgba(0,0,0,0.03); }
   [data-theme="light"] .btn-primary { color: #ffffff; }
   [data-theme="light"] .cursor { mix-blend-mode: multiply; }
-  [data-theme="light"] .edu-detail { color: #5a6a7a; }
+  [data-theme="light"] .edu-detail { color: #5a4e40; }
   [data-theme="light"] body::before { opacity: 0.15; }
 
   /* Theme toggle button */
@@ -143,6 +143,7 @@
   .highlight::before { content:'→';color:var(--accent3);flex-shrink:0;margin-top:1px; }
   .project-badge { display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);border:1px solid rgba(52,211,153,0.3);padding:3px 10px;letter-spacing:0.1em; }
   .notable-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px; }
+  @media (max-width:1100px) { .notable-grid { grid-template-columns:repeat(2,1fr); } }
   .notable-card { background:var(--surface);border:1px solid var(--border);padding:22px;transition:all 0.3s; }
   .notable-card:hover { border-color:var(--border-hover);transform:translateY(-3px); }
   .notable-title { font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text); }
@@ -196,6 +197,33 @@
   .unit-concept-dot { width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px; }
   .unit-focus { margin-top:18px;padding:10px 14px;background:rgba(99,210,255,0.04);border-left:2px solid var(--accent);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:1.6; }
   .unit-focus span { color:var(--accent); }
+
+  /* Completed semester units */
+  .semester-block { margin-bottom: 60px; }
+  .semester-heading {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .semester-heading::before { content: ''; width: 24px; height: 1px; background: var(--muted); }
+  .semester-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .unit-done {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    color: var(--accent3); border: 1px solid rgba(52,211,153,0.25);
+    padding: 3px 10px; margin-bottom: 14px; letter-spacing: 0.1em;
+  }
+  .unit-grade {
+    margin-top: 16px; padding: 10px 14px;
+    background: rgba(52,211,153,0.05); border-left: 2px solid var(--accent3);
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--muted); line-height: 1.6;
+  }
+  .unit-grade span { color: var(--accent3); font-weight: 600; }
+  .completed-grid {
+    display: grid; grid-template-columns: repeat(2,1fr); gap: 20px;
+  }
+  @media (max-width:900px) { .completed-grid { grid-template-columns: 1fr; } }
   #contact { background:var(--bg);border-top:1px solid var(--border); }
   .contact-grid { display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start; }
   .contact-text h2 { font-size:48px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px; }
@@ -271,7 +299,7 @@
       <div class="about-info reveal">
         <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="label">Location</div><div class="value">Brisbane, QLD, Australia</div></div></div>
         <div class="info-row"><div class="info-icon">🎓</div><div class="info-content"><div class="label">Degree</div><div class="value">BE (Hons) – Computer &amp; Software Systems · QUT</div></div></div>
-        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="label">Graduating</div><div class="value">December 2026 · GPA 5.5 / 7.00</div></div></div>
+        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="label">Graduating</div><div class="value">December 2026 · GPA 5.55 / 7.00</div></div></div>
         
         
         <div class="info-row"><div class="info-icon">📋</div><div class="info-content"><div class="label">Work Rights</div><div class="value">Student Visa (500) · Full-time eligible · No sponsorship required</div></div></div>
@@ -286,10 +314,10 @@
     <h2 class="section-title reveal">Tech Stack</h2>
     <div class="skills-grid">
       <div class="skill-group reveal"><div class="skill-group-icon">🐍</div><div class="skill-group-title">Languages</div><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C / MISRA-C</span><span class="skill-tag">C#</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span></div></div>
-      <div class="skill-group reveal"><div class="skill-group-icon">🤖</div><div class="skill-group-title">ML / AI</div><div class="skill-tags"><span class="skill-tag">TensorFlow</span><span class="skill-tag">Transfer Learning</span><span class="skill-tag">Random Forest</span><span class="skill-tag">Computer Vision</span><span class="skill-tag">IoT Sensor Pipelines</span><span class="skill-tag">LLM Prompting</span><span class="skill-tag">Agentic AI</span></div></div>
-      <div class="skill-group reveal"><div class="skill-group-icon">⚙️</div><div class="skill-group-title">Systems</div><div class="skill-tags"><span class="skill-tag">Parallel Computing</span><span class="skill-tag">TCP/IP</span><span class="skill-tag">POSIX Shared Memory</span><span class="skill-tag">Microcontrollers</span><span class="skill-tag">Signal Processing</span><span class="skill-tag">RTOS</span></div></div>
-      <div class="skill-group reveal"><div class="skill-group-icon">☁️</div><div class="skill-group-title">Backend &amp; Cloud</div><div class="skill-tags"><span class="skill-tag">AWS</span><span class="skill-tag">Docker</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">Kafka</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Node.js</span><span class="skill-tag">Maven</span><span class="skill-tag">CI/CD</span></div></div>
-      <div class="skill-group reveal"><div class="skill-group-icon">🌐</div><div class="skill-group-title">Frontend &amp; Web</div><div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">HTML / CSS</span><span class="skill-tag">Express</span><span class="skill-tag">Figma</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">🤖</div><div class="skill-group-title">ML / AI</div><div class="skill-tags"><span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Vision Transformers</span><span class="skill-tag">Transfer Learning</span><span class="skill-tag">Random Forest</span><span class="skill-tag">Computer Vision</span><span class="skill-tag">IoT Sensor Pipelines</span><span class="skill-tag">LLM Prompting</span><span class="skill-tag">Agentic AI</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">⚙️</div><div class="skill-group-title">Systems</div><div class="skill-tags"><span class="skill-tag">Parallel Computing</span><span class="skill-tag">TCP/IP</span><span class="skill-tag">POSIX Shared Memory</span><span class="skill-tag">Microcontrollers</span><span class="skill-tag">Signal Processing</span><span class="skill-tag">RTOS / FreeRTOS</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">☁️</div><div class="skill-group-title">Backend &amp; Cloud</div><div class="skill-tags"><span class="skill-tag">AWS</span><span class="skill-tag">Docker</span><span class="skill-tag">Node.js</span><span class="skill-tag">Express</span><span class="skill-tag">MySQL</span><span class="skill-tag">JWT</span><span class="skill-tag">Swagger</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">Kafka</span><span class="skill-tag">REST APIs</span><span class="skill-tag">CI/CD</span></div></div>
+      <div class="skill-group reveal"><div class="skill-group-icon">🌐</div><div class="skill-group-title">Frontend &amp; Web</div><div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">HTML / CSS</span><span class="skill-tag">Figma</span><span class="skill-tag">Responsive Design</span><span class="skill-tag">Accessibility</span></div></div>
       <div class="skill-group reveal"><div class="skill-group-icon">🛠️</div><div class="skill-group-title">Tooling</div><div class="skill-tags"><span class="skill-tag">Git</span><span class="skill-tag">Linux</span><span class="skill-tag">Jupyter</span><span class="skill-tag">Vertex AI</span><span class="skill-tag">MySQL Workbench</span><span class="skill-tag">Agile / TDD</span></div></div>
     </div>
   </div>
@@ -302,7 +330,7 @@
     <div class="projects-grid">
 
       <div class="project-card reveal">
-        <div class="project-num">01 / 06</div>
+        <div class="project-num">01 / 08</div>
         <div class="project-title">IoT Human Activity Recognition</div>
         <div class="project-tech">Python · Random Forest · Accelerometer Sensors · IAB330</div>
         <div class="project-desc">End-to-end ML pipeline classifying physical movement from raw sensor data — directly applicable to driver fatigue detection and wearable health monitoring.</div>
@@ -315,7 +343,7 @@
       </div>
 
       <div class="project-card reveal">
-        <div class="project-num">02 / 06</div>
+        <div class="project-num">02 / 08</div>
         <div class="project-title">BuzzLink — Social Travel App</div>
         <div class="project-tech">React · Node.js · REST API · Figma · Jul 2025</div>
         <div class="project-desc">Full-stack social platform enabling real-time traveller matching — built as a working product, not a prototype, with a cross-functional team of 7+.</div>
@@ -328,7 +356,7 @@
       </div>
 
       <div class="project-card reveal">
-        <div class="project-num">03 / 06</div>
+        <div class="project-num">03 / 08</div>
         <div class="project-title">Cloud REST API → Microservices</div>
         <div class="project-tech">AWS · Docker · Node.js · Auth · Messaging · CAB432</div>
         <div class="project-desc">Same application evolved through 3 progressive cloud architectures — each migration a deliberate, documented engineering trade-off decision.</div>
@@ -341,7 +369,7 @@
       </div>
 
       <div class="project-card reveal">
-        <div class="project-num">04 / 06</div>
+        <div class="project-num">04 / 08</div>
         <div class="project-title">Application Parallelisation</div>
         <div class="project-tech">C/C++ · Multi-core · Performance Profiling · CAB401</div>
         <div class="project-desc">Serial computationally intensive application parallelised manually with raw thread decomposition — benchmarked against theoretical speedup on multi-core hardware.</div>
@@ -353,7 +381,7 @@
       </div>
 
       <div class="project-card reveal">
-        <div class="project-num">05 / 06</div>
+        <div class="project-num">05 / 08</div>
         <div class="project-title">Deep Learning Image Classifier</div>
         <div class="project-tech">Python · TensorFlow · Transfer Learning · CAB320</div>
         <div class="project-desc">Pre-built CNN retrained via transfer learning on a complex visual dataset — applicable to autonomous vehicle object detection pipelines.</div>
@@ -365,7 +393,7 @@
       </div>
 
       <div class="project-card reveal">
-        <div class="project-num">06 / 06</div>
+        <div class="project-num">06 / 08</div>
         <div class="project-title">AI-Powered Student Planner</div>
         <div class="project-tech">Java · JavaFX · SQLite · Ollama LLM · PDFBox</div>
         <div class="project-desc">Desktop app integrating a local LLM to automate academic organisation — reads learning materials, syncs deadlines, identifies cross-subject connections.</div>
@@ -375,6 +403,30 @@
           <div class="highlight">Calendar integration surfacing key dates and weekly content digests</div>
         </div>
         <div class="project-badge">★ Group · 5 Engineers</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">07 / 08</div>
+        <div class="project-title">Vision Transformer Image Classification</div>
+        <div class="project-tech">Python · PyTorch · DeiT-Base · DeiT-Small · Caltech-256</div>
+        <div class="project-desc">Research into state-of-the-art Vision Transformer architectures for large-scale image classification, benchmarked against CNN baselines on the Caltech-256 dataset.</div>
+        <div class="project-highlights">
+          <div class="highlight">Implemented and compared DeiT-Base and DeiT-Small — analysed trade-offs in model scale, training efficiency and classification accuracy across 256 object categories</div>
+          <div class="highlight">Critically evaluated transformer self-attention mechanisms vs convolutional inductive biases — identifying where each architecture excels and fails</div>
+          <div class="highlight">Researched cutting-edge developments in vision transformers and communicated findings and methodology in a structured technical report to a specialised ML audience</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">08 / 08</div>
+        <div class="project-title">Full-Stack Rental Property Platform</div>
+        <div class="project-tech">React · Node.js · Express · MySQL · JWT · Swagger</div>
+        <div class="project-desc">End-to-end rental property data platform — responsive React frontend and a fully self-built REST API, deployed live to a production virtual machine.</div>
+        <div class="project-highlights">
+          <div class="highlight">Developed a responsive React application to search, filter and visualise Australian rental property data — applying modern web architecture, accessibility and usability principles</div>
+          <div class="highlight">Designed and built the REST API from scratch: Express routing, raw SQL queries against MySQL, JWT-based user authentication, and Swagger documentation</div>
+          <div class="highlight">Deployed the Node.js backend to a production VM — a live system, not a local prototype — demonstrating full software development lifecycle ownership</div>
+        </div>
       </div>
 
     </div>
@@ -397,6 +449,8 @@
         <div class="notable-tech">Python · Numerical Methods</div>
         <div class="notable-desc">Applied numerical methods to real-world engineering problems with full analytical documentation.</div>
       </div>
+
+
     </div>
   </div>
 </section>
@@ -411,11 +465,33 @@
         <div class="edu-uni">Computer &amp; Software Systems · Queensland University of Technology</div>
         <div class="edu-detail">Feb 2023 – Dec 2026 · Brisbane, QLD<br><strong style="color:var(--accent2)">International Merit Scholarship</strong> — 25% tuition award for academic excellence<br><br>Coursework: Systems Programming · Software Architecture · Embedded Systems · Parallel Computing · AI · Applied IoT · Cloud Computing · Databases · Cybersecurity · Signal Analysis · RF &amp; Telecommunications · Electronic Design</div>
       </div>
-      <div class="edu-gpa"><div class="gpa-num">5.5</div><div class="gpa-label">GPA / 7.00</div></div>
+      <div class="edu-gpa"><div class="gpa-num">5.55</div><div class="gpa-label">GPA / 7.00</div></div>
     </div>
     <div class="divider"></div>
     <div class="timeline">
       <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jun 2026 – Present</div>
+        <div class="timeline-title">Network Engineering Intern</div>
+        <div class="timeline-org">BHP · Technology Intern Program 2026</div>
+        <ul class="timeline-points">
+          <li>Selected for the BHP Technology Intern Program 2026, working within the network engineering team on enterprise-scale infrastructure</li>
+          <li>Gaining hands-on exposure to large-scale corporate networking environments, supporting technology operations across BHP's systems</li>
+          <li>Applying technical problem-solving and communication skills within a global resources and technology organisation</li>
+        </ul>
+      </div>
+            <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jun 2026 – Present</div>
+        <div class="timeline-title">HiQ Peer Concierge</div>
+        <div class="timeline-org">Queensland University of Technology</div>
+        <ul class="timeline-points">
+          <li>First point of contact for students across front-of-house, phone, and chat channels — triaging enquiries and escalating complex cases to HiQ Advisers</li>
+          <li>Support peers navigating QUT systems, online portals, and administrative processes including enrolment and ID card management</li>
+          <li>Provide referrals to academic, wellbeing, and tech support services, maintaining accuracy under a fast-paced service environment</li>
+        </ul>
+      </div>
+            <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-period">Jan 2026</div>
         <div class="timeline-title">Software Engineering Simulation</div>
@@ -463,61 +539,68 @@
 <section id="learning">
   <div class="section-inner">
     <div class="section-label">05 — Currently Learning</div>
-    <h2 class="section-title reveal">This Semester <span style="font-size:0.45em;color:var(--accent3);font-weight:400;vertical-align:middle;font-family:'DM Mono',monospace;letter-spacing:0.1em;">· Sem 1, 2026</span></h2>
+    <h2 class="section-title reveal">This Semester <span style="font-size:0.45em;color:var(--accent3);font-weight:400;vertical-align:middle;font-family:'DM Mono',monospace;letter-spacing:0.1em;">· Sem 2, 2026</span></h2>
     <div class="learning-grid">
+
       <div class="unit-card reveal">
         <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
-        <div class="unit-code">CAB420</div>
-        <div class="unit-name">Machine Learning</div>
-        <div class="unit-type">Honours · Python · JupyterLab</div>
+        <div class="unit-code">EGH444</div>
+        <div class="unit-name">Digital Signals &amp; Image Processing</div>
+        <div class="unit-type">Honours · Python / MATLAB · Computer Vision</div>
         <div class="unit-concepts">
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Classification principles, dimensionality reduction &amp; subspace methods</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Deep learning — CNNs, Transformers and neural architecture analysis</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Statistical ML foundations, model evaluation and compute cost reduction</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Ethical ML: marginalisation, algorithmic bias and responsible deployment</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Applications in computer vision, finance and information retrieval</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Image representation, acquisition and spatial/frequency domain filtering</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Image enhancement, feature extraction and segmentation techniques</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Compression algorithms and signal processing fundamentals</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Machine learning applied to computer vision problems</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Practical coding of image processing and deep learning algorithms</div>
         </div>
-        <div class="unit-focus"><span>Current focus:</span> Applied ML project — researching cutting-edge methods and communicating findings to a specialised audience</div>
+        <div class="unit-focus"><span>Current focus:</span> Group project — implementing image processing and CV techniques to solve a real-world detection or classification problem</div>
       </div>
+
       <div class="unit-card reveal">
         <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
-        <div class="unit-code">EGH456</div>
-        <div class="unit-name">Embedded Systems</div>
-        <div class="unit-type">Honours · C/C++ · RTOS · Lab-Based</div>
+        <div class="unit-code">EGH455</div>
+        <div class="unit-name">Advanced Systems Design</div>
+        <div class="unit-type">Honours · Systems Engineering · Team-Based</div>
         <div class="unit-concepts">
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Real-time operating systems for concurrent task management</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Advanced microcontroller peripherals and serial communication</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Real-time sensing, control loops and interrupt-driven design</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>C/C++ embedded application development with hardware integration</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Systems engineering design methodology from need to verified prototype</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Customer identification, business case formulation and concept of operations</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>System requirements, trade studies and design selection</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Work breakdown structures and project management to industry standards</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Design testing, verification and critical design review presentations</div>
         </div>
-        <div class="unit-focus"><span>Current focus:</span> Group PBL project — designing embedded software to control an external device in real time</div>
+        <div class="unit-focus"><span>Current focus:</span> Team design project — replicating industry systems engineering practice from concept through to prototype verification</div>
       </div>
+
       <div class="unit-card reveal">
         <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
-        <div class="unit-code">EGH490-1</div>
-        <div class="unit-name">Capstone Research Project 1</div>
-        <div class="unit-type">Honours · Independent Research · Engineering Practice</div>
+        <div class="unit-code">EGH490-2</div>
+        <div class="unit-name">Capstone Research Project 2</div>
+        <div class="unit-type">Honours · Independent Research · Final Delivery</div>
         <div class="unit-concepts">
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Engineering project design, methodology and professional management</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Literature review, synthesis and reference management</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Risk, ethics and sustainability in a real engineering project context</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Stakeholder engagement and professional engineering practice</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Rigorous research and investigation applied to a real engineering problem</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Risk, sustainability and ethics integrated into project delivery</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Professional practice — teamwork, stakeholder engagement, reporting</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Written project delivery report and oral defence to academic and industry panel</div>
         </div>
-        <div class="unit-focus"><span>Current focus:</span> Project proposal + literature review — continuing into EGH490-2 next semester</div>
+        <div class="unit-focus"><span>Current focus:</span> Final project delivery — culminating in a written report and oral defence, continues from EGH490-1</div>
       </div>
+
       <div class="unit-card reveal">
         <div class="unit-live"><div class="unit-live-dot"></div>In Progress</div>
-        <div class="unit-code">CAB230</div>
-        <div class="unit-name">Web Computing</div>
-        <div class="unit-type">JavaScript · React · Node.js · Express · HTTPS</div>
+        <div class="unit-code">AYB250</div>
+        <div class="unit-name">Personal Financial Planning</div>
+        <div class="unit-type">Business Elective · Financial Analysis · Excel</div>
         <div class="unit-concepts">
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Modern JavaScript — client-side programming and async patterns</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>React for responsive, component-based frontend development</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Node.js + Express for server-side REST API design and deployment</div>
-          <div class="unit-concept"><div class="unit-concept-dot"></div>Web security threats, HTTPS deployment and mitigation</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Personal financial planning services and regulatory environments</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Investment strategy, risk management and retirement planning</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Evidence-based financial decision making and critical evaluation</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Financial data modelling and analysis using Excel</div>
+          <div class="unit-concept"><div class="unit-concept-dot"></div>Professional written communication of financial judgements and plans</div>
         </div>
-        <div class="unit-focus"><span>Current focus:</span> Full-stack data-driven web app — React frontend + custom Node.js REST API, deployed live with HTTPS</div>
+        <div class="unit-focus"><span>Current focus:</span> Individual project — preparing a financial plan case study integrating investment, risk and retirement planning concepts</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -528,7 +611,7 @@
     <div class="contact-grid">
       <div class="contact-text reveal">
         <h2>Let's<br><span>Work Together</span></h2>
-        <p style="margin-top:20px">Actively seeking internships and graduate software engineering roles. Open to full-time opportunities in engineering, AI/ML, or cloud-native development. Student Visa (500) — full-time eligible, no sponsorship required.</p>
+        <p style="margin-top:20px">Currently interning at BHP as a Network Engineering Intern. Open to graduate software engineering roles from December 2026 in engineering, AI/ML, or cloud-native development. Student Visa (500) — full-time eligible, no sponsorship required.</p>
       </div>
       <div class="contact-links reveal">
         <a href="mailto:chaubeprakriti@gmail.com" class="contact-link"><div class="contact-link-icon">✉️</div><div><div class="contact-link-label">Email</div><div class="contact-link-value">chaubeprakriti@gmail.com</div></div></a>
